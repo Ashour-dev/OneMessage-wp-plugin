@@ -37,7 +37,7 @@ class OneMessage
 {
     public $plugin;
     public $fav;
-    
+
     function activate(){
         // $this->custom_post_type();
         $this->fav = plugin_dir_path(__FILE__) . 'assets/fav.svg';
@@ -58,7 +58,7 @@ class OneMessage
 
     }
     public function settings_link( $links ) {
-        $settings_link= '<a href="admin.php?page=one_message">Preferences</a>';
+        $settings_link= '<a href="admin.php?page=one_message_setting">Preferences</a>';
         array_push( $links, $settings_link);
         // dd($links);
         return $links;
@@ -96,9 +96,10 @@ if ( class_exists('OneMessage')){
     $oneMessage= new OneMessage();
     $oneMessage->register();
 }
-
-// global $pagenow ;
-//         dd($pagenow);
+    // require_once plugin_dir_path(__FILE__) . 'assets/globals.php';
+    // global $WSName ;
+    // echo '++++++++++++++++++++++++++++' . $GLOBALS['WSName'];
+    // dd($GLOBALS);
 
 
 
