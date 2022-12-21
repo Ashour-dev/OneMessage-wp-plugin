@@ -1,0 +1,18 @@
+{
+    "name": "one_message/one-message",
+    "description": "One Mesaage plugin",
+    "type": "wp-plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "One Message"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4":{
+            "assets\\":"./assets",
+            "inc\\":"./inc"
+            }
+    }
+}

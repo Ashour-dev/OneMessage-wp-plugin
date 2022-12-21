@@ -25,6 +25,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with {Plugin Name}. If not, see {URI to Plugin License}.
 */
+require 'vendor/autoload.php';
+use inc\DefaultFuncs;
+use inc\AdminPages;
+use inc\EnqueueFiles;
 
 
 
@@ -39,19 +43,16 @@ class OneMessage
     public $fav;
 
     function activate(){
-        // $this->custom_post_type();
-        $this->fav = plugin_dir_path(__FILE__) . 'assets/fav.svg';
-        // $this->register();
-        flush_rewrite_rules();
+        DefaultFuncs::activate();
     }
 
-    function deactivate(){
-        flush_rewrite_rules();
-    }
+    // function deactivate(){
+    //     flush_rewrite_rules();
+    // }
     function register(){
         $this->plugin = plugin_basename( __FILE__ );
-        add_action('admin_enqueue_scripts', array($this, 'enqueue'));
-        add_action( 'admin_menu', array( $this, 'add_admin_pages' ) );
+        add_action('admin_enqueue_scripts', array(EnqueueFiles::class, 'enqueueCSS'));
+        add_action( 'admin_menu', array( AdminPages::class, 'add_admin_pages' ) );
         // add_action( 'admin_menu', array( $this, 'add_sub_menu' ) );
         // echo "++++++++++++++++++++++++" . $this->settings_link;
         add_filter( "plugin_action_links_$this->plugin", array( $this, 'settings_link' ) );
@@ -66,18 +67,18 @@ class OneMessage
 
 
     function add_admin_pages(){
-        add_menu_page( 'Getting Started', 'One Message', 'manage_options', 'one_message', array( $this,
-    'gettingStarted_index' ),'dashicons-admin-site',110);
-        add_submenu_page('one_message','Preferences', 'Preferences', 'manage_options', 'one_message_setting',array($this, 'preferences_page'));
+    //     add_menu_page( 'Getting Started', 'One Message', 'manage_options', 'one_message', array( $this,
+    // 'gettingStarted_index' ),'dashicons-admin-site',110);
+    //     add_submenu_page('one_message','Preferences', 'Preferences', 'manage_options', 'one_message_setting',array($this, 'preferences_page'));
     // global $submenu;
     // dd($submenu);
     }
-    function preferences_page(){
-        require_once plugin_dir_path(__FILE__) . 'templates/preferences.php';
-    }
-    function gettingStarted_index(){
-        require_once plugin_dir_path(__FILE__) . 'templates/gettingStarted.php';
-    }
+    // function preferences_page(){
+    //     require_once plugin_dir_path(__FILE__) . 'templates/preferences.php';
+    // }
+    // function gettingStarted_index(){
+    //     require_once plugin_dir_path(__FILE__) . 'templates/gettingStarted.php';
+    // }
     // function custom_post_type(){
     //     register_post_type('one_message', ['public'=>'true','label'=>'OneMessage','show_ui'=>'true','show_in_menu'=>'true','capability_type'=> 'OneM']);		
 	// 	// global $wp_post_types;
@@ -96,13 +97,14 @@ if ( class_exists('OneMessage')){
     $oneMessage= new OneMessage();
     $oneMessage->register();
 }
-    // require_once plugin_dir_path(__FILE__) . 'assets/globals.php';
-    // global $WSName ;
-    // echo '++++++++++++++++++++++++++++' . $GLOBALS['WSName'];
-    // dd($GLOBALS);
+// include plugin_dir_path(__FILE__) . 'assets/globals.php';
+//     global $WSName ;
+//     echo '++++++++++++++++++++++++++++' . $WSName;
+//     // var_dump($GLOBALS["oneMessage"]);
+//     var_dump($GLOBALS["WSName"]);
 
 
 
 register_activation_hook(__FILE__, array($oneMessage, 'activate'));
 
-register_deactivation_hook(__FILE__, array($oneMessage, 'deactivate'));
+register_deactivation_hook(__FILE__, array(DefaultFuncs::class, 'deactivate'));

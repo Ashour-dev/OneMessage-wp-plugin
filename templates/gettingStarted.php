@@ -3,6 +3,9 @@ $firstStep=false;
 $logedin=false;
 $alreadyUser=null;
 $WSC=null;
+// $WSName=null;
+// require_once plugin_dir_path(__FILE__) . '../assets/globals.php';
+
 if(isset($_GET['alreadyUser'])){
     $alreadyUser=$_GET['alreadyUser'];
     echo 'alreadyUser=' . $alreadyUser;
@@ -31,9 +34,8 @@ if(isset($_GET['WSINserted'])){
         $WSC='Workspace not found';
     else{
         $WSC='Workspace found';
-        // require_once plugin_dir_path(__FILE__) . '../assets/globals.php';
-        // $GLOBALS['WSName']=$WSName;
-        // dd($GLOBALS);
+        $GLOBALS['WSName']=$WSName;
+        // dd($GLOBALS['WSName']);
     }
 };
 
@@ -42,7 +44,7 @@ if(isset($_GET['WSINserted'])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script> -->
 </head>
 <body>
     <div class="OneMessagePage">
@@ -59,7 +61,7 @@ if(isset($_GET['WSINserted'])){
                     <div class="WSStep">
                         <h1>Insert your worksace name</h1>
                         <input id="WSName" name="WSName" type="text">
-                        <span class="error">' . $WSC .'</span>
+                        <span id="error">' . $WSC .'</span>
                         <button
                         onclick="sendWSN()">look for my Workspace</button>
                     </div>';
@@ -86,10 +88,9 @@ if(isset($_GET['WSINserted'])){
         // let formAction=document.getElementById("WSForm").action;
         // formAction+=WSN;
         let WSN=document.getElementById("WSName").value;
-        console.log(WSN.length);
+        errF=document.getElementById("error");
+        // console.log(WSN.length);
         if(WSN.length==0){
-            errF=document.getElementsByClassName("error");
-            console.log(errF)
             errF.textContent="Please enter the name of your Workspace";
         }else
         location.href = "/wp-admin/admin.php?page=one_message&alreadyUser=yes&WSINserted=true&WSName=" + WSN ;
