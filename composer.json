@@ -12,7 +12,11 @@
     "autoload": {
         "psr-4":{
             "assets\\":"./assets",
-            "inc\\":"./inc"
+            "inc\\":"./inc",
+            "HTTP\\":"./vendor/pear/http_request2/HTTP"
             }
+    },
+    "require": {
+        "pear/http_request2": "dev-trunk"
     }
 }

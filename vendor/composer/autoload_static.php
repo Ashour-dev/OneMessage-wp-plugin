@@ -15,6 +15,10 @@ class ComposerStaticInit8e343efa96c088cd06ce327f6929459b
         array (
             'assets\\' => 7,
         ),
+        'H' => 
+        array (
+            'HTTP\\' => 5,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -26,10 +30,26 @@ class ComposerStaticInit8e343efa96c088cd06ce327f6929459b
         array (
             0 => __DIR__ . '/../..' . '/assets',
         ),
+        'HTTP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pear/http_request2/HTTP',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'HTTP_Request2' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/http_request2',
+            ),
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Net_URL2' => __DIR__ . '/..' . '/pear/net_url2/Net/URL2.php',
+        'PEAR_Exception' => __DIR__ . '/..' . '/pear/pear_exception/PEAR/Exception.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -37,6 +57,7 @@ class ComposerStaticInit8e343efa96c088cd06ce327f6929459b
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit8e343efa96c088cd06ce327f6929459b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit8e343efa96c088cd06ce327f6929459b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8e343efa96c088cd06ce327f6929459b::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit8e343efa96c088cd06ce327f6929459b::$classMap;
 
         }, null, ClassLoader::class);

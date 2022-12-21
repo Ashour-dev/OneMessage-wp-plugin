@@ -49,8 +49,18 @@
   font-weight: 400;
   font-size: large;
 }
-.OneMessagePage .login_container #error {
+.OneMessagePage .login_container #errorWS, .OneMessagePage .login_container #errorApi {
   color: red;
   position: relative;
   top: 0.4rem;
+}
+.OneMessagePage .login_container .all-set {
+  text-align: center;
+  cursor: none;
+}
+.OneMessagePage .login_container #apiKPage {
+  position: absolute;
+  bottom: 11px;
+  right: 19px;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */

@@ -26,6 +26,8 @@ You should have received a copy of the GNU General Public License
 along with {Plugin Name}. If not, see {URI to Plugin License}.
 */
 require 'vendor/autoload.php';
+require 'vendor/pear/http_request2/HTTP/Request2.php';
+
 use inc\DefaultFuncs;
 use inc\AdminPages;
 use inc\EnqueueFiles;
@@ -41,6 +43,7 @@ class OneMessage
 {
     public $plugin;
     public $fav;
+    public $test=1;
 
     function activate(){
         DefaultFuncs::activate();
@@ -85,9 +88,9 @@ class OneMessage
 	// 	// dd($wp_post_types['one_message']);
     // }
 
-    function enqueue(){
-        wp_enqueue_style('myStyle', plugins_url('/assets/style.css',__FILE__));
-    }
+    // function enqueue(){
+    //     wp_enqueue_style('myStyle', plugins_url('/assets/style.css',__FILE__));
+    // }
 
 }
 

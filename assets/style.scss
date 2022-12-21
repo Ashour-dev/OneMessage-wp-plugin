@@ -50,10 +50,20 @@
                 font-size: large;
             }
         }
-        #error{
+        #errorWS,#errorApi{
             color: red;
             position: relative;
             top: .4rem;
+        }
+        .all-set{
+            text-align: center;
+            cursor: none;
+        }
+        #apiKPage{
+            position: absolute;
+            bottom: 11px;
+            right: 19px;
+            text-decoration: none;
         }
     }
 }

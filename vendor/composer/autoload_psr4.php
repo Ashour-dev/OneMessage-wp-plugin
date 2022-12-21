@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'inc\\' => array($baseDir . '/inc'),
     'assets\\' => array($baseDir . '/assets'),
+    'HTTP\\' => array($vendorDir . '/pear/http_request2/HTTP'),
 );
