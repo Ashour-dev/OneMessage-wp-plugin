@@ -5,13 +5,18 @@ $alreadyUser=null;
 $WSC=null;
 $ApiC=null;
 $apiKPagelink="Workspace undefined";
+use inc\DefaultFuncs;
 
 // $WSName=null;
 // require_once plugin_dir_path(__FILE__) . '../assets/globals.php';
 
+/*session created*/
+
 
 if(isset($_GET['alreadyUser'])){
     $alreadyUser=$_GET['alreadyUser'];
+    // $_SESSION["alreadyUser"]=$alreadyUser;
+
     // echo 'alreadyUser=' . $alreadyUser;
 };
 if(isset($_GET['WSINserted'])){
@@ -38,7 +43,7 @@ if(isset($_GET['WSINserted'])){
         $WSC='Workspace not found';
     else{
         $WSC='Workspace found';
-        $GLOBALS['WSName']=$WSName;
+        $_SESSION['WSName']=$WSName;
         $apiKPagelink="https://" . $WSName . ".onemessage.chat/api-key/list";
     }
 };
@@ -57,18 +62,22 @@ if(isset($_GET['ApiK'])){
     $response = $request->send();
     if ($response->getStatus() == 200) {
         $ApiC="Api Key valid";
+        $_SESSION['ApiK']=$ApiK;
+        $_SESSION['AllSet']=true;
+        DefaultFuncs::StoreSessionVars();
     }
     else {
         if($response->getStatus() == 401){
             $ApiC="Api Key is Invalid";
-        }else
-        $ApiC='Unexpected HTTP status: ' . $response->getStatus() . ' ' .$response->getReasonPhrase();
+        }else{
+            $ApiC='Unexpected HTTP status: ' . $response->getStatus() . ' ' .$response->getReasonPhrase();
+        }
     }
     }
     catch(HTTP_Request2_Exception $e) {
         // $ApiC=null;
-        dd($e->getMessage());
-        // echo 'Error: ' . $e->getMessage();
+        // dd($e->getMessage());
+        echo 'Error: ' . $e->getMessage();
     }
 }
 
@@ -107,7 +116,7 @@ if(isset($_GET['ApiK'])){
                 <a href="https://www.onemessage.chat/book-a-demo/">Book a demo</a>
                 </div>';
             };
-            if($WSC=='Workspace found'&&($ApiC==null||$ApiC=="Api Key is Invalid")){
+            if($WSC=='Workspace found' && $ApiC!="Api Key valid"){
                 echo'
                     <div class="WSStep">
                         <h1>Insert your Api Key</h1>

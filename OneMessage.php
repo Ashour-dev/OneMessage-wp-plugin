@@ -41,7 +41,7 @@ if(! defined('ABSPATH')){
 
 class OneMessage
 {
-    public $plugin;
+    public $plugin,$WSName,$ApiK,$AllSet;
     public $fav;
     public $test=1;
 
@@ -53,8 +53,10 @@ class OneMessage
     //     flush_rewrite_rules();
     // }
     function register(){
+        session_start();
         $this->plugin = plugin_basename( __FILE__ );
         add_action('admin_enqueue_scripts', array(EnqueueFiles::class, 'enqueueCSS'));
+        // DefaultFuncs::StoreSessionVars();
         add_action( 'admin_menu', array( AdminPages::class, 'add_admin_pages' ) );
         // add_action( 'admin_menu', array( $this, 'add_sub_menu' ) );
         // echo "++++++++++++++++++++++++" . $this->settings_link;
@@ -69,27 +71,13 @@ class OneMessage
     }
 
 
-    function add_admin_pages(){
-    //     add_menu_page( 'Getting Started', 'One Message', 'manage_options', 'one_message', array( $this,
-    // 'gettingStarted_index' ),'dashicons-admin-site',110);
-    //     add_submenu_page('one_message','Preferences', 'Preferences', 'manage_options', 'one_message_setting',array($this, 'preferences_page'));
-    // global $submenu;
-    // dd($submenu);
-    }
-    // function preferences_page(){
-    //     require_once plugin_dir_path(__FILE__) . 'templates/preferences.php';
-    // }
-    // function gettingStarted_index(){
-    //     require_once plugin_dir_path(__FILE__) . 'templates/gettingStarted.php';
-    // }
-    // function custom_post_type(){
-    //     register_post_type('one_message', ['public'=>'true','label'=>'OneMessage','show_ui'=>'true','show_in_menu'=>'true','capability_type'=> 'OneM']);		
-	// 	// global $wp_post_types;
-	// 	// dd($wp_post_types['one_message']);
-    // }
-
-    // function enqueue(){
-    //     wp_enqueue_style('myStyle', plugins_url('/assets/style.css',__FILE__));
+    // function storing_session_variables(){
+    //     if(isset($_SESSION["AllSet"])){
+    //         // echo "+++++++++++++++++++++" .  $_SESSION["WSName"];
+    //         $ApiK= $_SESSION["ApiK"];
+    //         $AllSet= $_SESSION["AllSet"];
+    //         $WSName=$_SESSION["WSName"];
+    //     }
     // }
 
 }
@@ -100,6 +88,7 @@ if ( class_exists('OneMessage')){
     $oneMessage= new OneMessage();
     $oneMessage->register();
 }
+
 // include plugin_dir_path(__FILE__) . 'assets/globals.php';
 //     global $WSName ;
 //     echo '++++++++++++++++++++++++++++' . $WSName;
