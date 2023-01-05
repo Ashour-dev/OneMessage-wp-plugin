@@ -10,7 +10,7 @@ class AdminPages{
     }
     public static function gettingStarted_index(){
         // echo $AllSet;
-        if(isset($_SESSION["AllSet"])||isset($AllSet)||true)
+        if(isset($_SESSION["AllSet"])||isset($AllSet))
         require_once plugin_dir_path(__FILE__) . '../templates/preferences.php';
         else
         require_once plugin_dir_path(__FILE__) . '../templates/gettingStarted.php';

@@ -24,6 +24,11 @@ class DefaultFuncs{
             // echo "+++++++++++++++++++++" .  $_SESSION["WSName"];
             // echo "+++++++++++++++++++++" .  $_SESSION["ApiK"];
             // echo "+++++++++++++++++++++" .  $_SESSION["AllSet"];
+            global $wpdb;
+            $wpdb->query( "CREATE TABLE One (
+                WSName VARCHAR,
+                AllSet Boolean,
+            );" );
         }
         if(isset($AllSet)){
             echo "+++++++++++++++++++++" .  $WSName;
