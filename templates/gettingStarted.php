@@ -86,7 +86,6 @@ if(isset($_GET['ApiK'])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script> -->
 </head>
 <body>
     <div class="OneMessagePage">
@@ -154,32 +153,15 @@ if(isset($_GET['ApiK'])){
 <script type="text/javascript">
     function sendWSN() {
         var WSN=document.getElementById("WSName").value.trim();
-        // e.preventDefault();
-        // let WSN=$('input[name=WSName]').val();
-        // let formAction=document.getElementById("WSForm").action;
-        // formAction+=WSN;
         errF=document.getElementById("errorWS");
-        // console.log(WSN.length);
         if(WSN.length==0){
             errF.textContent="Please enter the name of your Workspace";
         }else
         location.href = "/wp-admin/admin.php?page=one_message&alreadyUser=yes&WSINserted=true&WSName=" + WSN ;
-        // newLink+=WSN;
-        // alert(newLink);
-        // form.submit();
-        // $.ajax({
-        //     type:'post',
-        //     data:{WSName:WSN},
-        //     success:(response)=>{
-        //         $_POST['WSName']=WSN;
-        //     },
-        // })
-        // $.post("?page=one_message&alreadyUser=yes&WSINserted=true",WSN,()=>WSName=WSN)
     }
     function sendApiK(){
         let ApiK=document.getElementById("ApiK").value.trim();
         errF=document.getElementById("errorApi");
-        // console.log(WSN.length);
         if(ApiK.length==0){
             errF.textContent="Please enter your Api Key";
         }else

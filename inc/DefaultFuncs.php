@@ -12,10 +12,6 @@ class DefaultFuncs{
     }
     
     public static function activate(){
-        // $this->custom_post_type();
-        // $this->fav = plugin_dir_path(__FILE__) . 'assets/fav.svg';
-        // $this->register();
-        // Init::register_services();
         flush_rewrite_rules();
     }
 
