@@ -16,9 +16,9 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 // drop a custom database table
 // global $wpdb;
 // $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mytable" );
-$_SESSION["WSName"]=null;
-$_SESSION["ApiK"]=null;
-$_SESSION["AllSet"]=null;
+// $_SESSION["WSName"]=null;
+// $_SESSION["ApiK"]=null;
+// $_SESSION["AllSet"]=null;
 
 session_reset();
 // global $wpdb;
