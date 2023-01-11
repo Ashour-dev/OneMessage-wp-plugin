@@ -34,7 +34,17 @@ if(! defined('ABSPATH')){
     die;
 }
 
-define('plugin_basename',plugin_basename( __FILE__ ));
+define('PLUGIN_PATH',plugin_dir_path( __FILE__ ));
+define('PLUGIN_URL',plugin_dir_url( __FILE__ ));
+define('PLUGIN',plugin_basename( __FILE__ ));
+
+
+use inc\DefaultFuncs;
+$activate=fn()=>DefaultFuncs::activate();
+$deactivate=fn()=>DefaultFuncs::deactivate();
+
+register_activation_hook(__FILE__, $activate);
+register_deactivation_hook(__FILE__, $deactivate);
 
 if(class_exists('inc\\Init')){
     session_start();

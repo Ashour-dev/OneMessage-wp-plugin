@@ -5,11 +5,6 @@ namespace inc;
 
 class DefaultFuncs{
     // public $ApiK=null,$WSName,$AllSet;
-    public function register(){
-        register_activation_hook(__FILE__, array($this,'activate'));
-
-        register_deactivation_hook(__FILE__, array($this,'deactivate'));
-    }
     
     public static function activate(){
         flush_rewrite_rules();
@@ -21,24 +16,30 @@ class DefaultFuncs{
     public static function StoreSessionVars(){
         if(isset($_SESSION["AllSet"])){
             $ApiK= $_SESSION["ApiK"];
-            $AllSet= $_SESSION["AllSet"];
             $WSName=$_SESSION["WSName"];
+            $AllSet= $_SESSION["AllSet"];
             // echo "+++++++++++++++++++++" .  $_SESSION["WSName"];
             // echo "+++++++++++++++++++++" .  $_SESSION["ApiK"];
             // echo "+++++++++++++++++++++" .  $_SESSION["AllSet"];
-            global $wpdb;
-            $wpdb->query( "CREATE TABLE One (
-                WSName VARCHAR,
-                AllSet Boolean,
-            );" );
+            // global $wpdb;
+            // $wpdb->query( "CREATE TABLE One (
+            //     WSName VARCHAR,
+            //     AllSet Boolean,
+            // );" );
+            define('ApiK',$ApiK);
+            define('WSName',$WSName);
+            define('AllSet',$AllSet);
+            echo "+++++++++++++++++++++ All Variables are defined";
+            if(defined('AllSet'))
+                echo "+++++++++++++++++++++ All Variables are really defined";
         }
-        if(isset($AllSet)){
-            echo "+++++++++++++++++++++" .  $WSName;
-            echo "+++++++++++++++++++++" .  $ApiK;
-            echo "+++++++++++++++++++++" .  $AllSet;
-        }
-        else
-            echo "+++++++++++++++++++++all set doesn't exist";
+        // if(isset($AllSet)){
+        //     echo "+++++++++++++++++++++" .  $WSName;
+        //     echo "+++++++++++++++++++++" .  $ApiK;
+        //     echo "+++++++++++++++++++++" .  $AllSet;
+        // }
+        // else
+        //     echo "+++++++++++++++++++++all set doesn't exist";
     
     }
 }

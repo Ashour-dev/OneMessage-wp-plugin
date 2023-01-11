@@ -34,8 +34,13 @@
         <h1>Preferences</h1>
         <div>
             <h2>Social Profiles</h2>
+            <!-- <button>Create db table</button> -->
         </div>
     </div>
 </body>
+
+<script type="text/javascript">
+
+</script>
 </html>
 

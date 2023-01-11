@@ -6,6 +6,6 @@ class EnqueueFiles{
     }
 
     public static function enqueueCSS(){
-        wp_enqueue_style('myStyle', plugins_url('../assets/style.css',__FILE__));
+        wp_enqueue_style('myStyle', PLUGIN_URL .'assets/style.css');
     }
 }

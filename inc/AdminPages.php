@@ -4,8 +4,7 @@ namespace inc;
 class AdminPages{
     public function register(){
         add_action( 'admin_menu', array( $this, 'add_admin_pages' ) );
-        add_filter( "plugin_action_links_" . plugin_basename, array( $this, 'settings_link' ) );
-
+        add_filter( "plugin_action_links_" . PLUGIN , array( $this, 'settings_link' ) );
     }
 
     public function add_admin_pages(){
@@ -17,9 +16,9 @@ class AdminPages{
     public function gettingStarted_index(){
         // echo $AllSet;
         if(isset($_SESSION["AllSet"])||isset($AllSet))
-        require_once plugin_dir_path(__FILE__) . '../templates/preferences.php';
+        require_once PLUGIN_PATH . 'templates/preferences.php';
         else
-        require_once plugin_dir_path(__FILE__) . '../templates/gettingStarted.php';
+        require_once PLUGIN_PATH . 'templates/gettingStarted.php';
     }
     public function settings_link( $links ) {
         $settings_link= '<a href="admin.php?page=one_message">Preferences</a>';
@@ -27,7 +26,7 @@ class AdminPages{
         // dd($links);
         return $links;
     }
-    public static function preferences_page(){
-        require_once plugin_dir_path(__FILE__) . '../templates/preferences.php';
-    }
+    // public static function preferences_page(){
+    //     require_once plugin_dir_path(__FILE__) . '../templates/preferences.php';
+    // }
 }
