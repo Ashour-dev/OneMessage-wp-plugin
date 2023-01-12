@@ -15,7 +15,7 @@ class AdminPages{
     }
     public function gettingStarted_index(){
         // echo $AllSet;
-        if(isset($_SESSION["AllSet"])||isset($AllSet))
+        if(ALLSET!=0)
         require_once PLUGIN_PATH . 'templates/preferences.php';
         else
         require_once PLUGIN_PATH . 'templates/gettingStarted.php';

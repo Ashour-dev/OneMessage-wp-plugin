@@ -2,8 +2,8 @@
 /**
 * Plugin Name: OneMessage
 * Plugin URI: https://www.OneMessage.chat/
-* Description: First Test.
-* Version: 1.0
+* Description: OneMessage is the App that allows you to communicate with customers or potential customers, using the most popular messaging channels, from within a single App.
+* Version: 1.1.0
 * Author: OneMessage
 * Author URI: https://www.OneMessage.chat/
 * Licence: GPLv2 or later
@@ -27,7 +27,7 @@ along with {Plugin Name}. If not, see {URI to Plugin License}.
 */
 require 'vendor/autoload.php';
 require 'vendor/pear/http_request2/HTTP/Request2.php';
-
+global $wpdb;
 
 
 if(! defined('ABSPATH')){
@@ -37,6 +37,10 @@ if(! defined('ABSPATH')){
 define('PLUGIN_PATH',plugin_dir_path( __FILE__ ));
 define('PLUGIN_URL',plugin_dir_url( __FILE__ ));
 define('PLUGIN',plugin_basename( __FILE__ ));
+define('TBNAME',$wpdb->prefix . 'One');
+define('UPGRADE', ABSPATH . 'wp-admin/includes/upgrade.php');
+$tbName=TBNAME;
+define('ALLSET', count($wpdb->get_results("SELECT * FROM $tbName")));
 
 
 use inc\DefaultFuncs;
@@ -49,4 +53,5 @@ register_deactivation_hook(__FILE__, $deactivate);
 if(class_exists('inc\\Init')){
     session_start();
     inc\Init::register_services();
+    inc\Init::db_initiazlization();
 }

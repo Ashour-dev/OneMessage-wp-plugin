@@ -1,5 +1,7 @@
 <?php
-
+// use inc\DefaultFuncs;
+// DefaultFuncs::StoreSessionVars();
+dd(ALLSET);
 //     $request = new HTTP_Request2();
 //     $request->setUrl("https://" . $_SESSION['WSName'] .".onemessage.chat/api/v1/social-profiles");
 //     $request->setMethod(HTTP_Request2::METHOD_GET);
