@@ -8,7 +8,7 @@ class AdminPages{
     }
 
     public function add_admin_pages(){
-        add_menu_page( 'Getting Started', 'One Message', 'manage_options', 'one_message', array( $this,'gettingStarted_index' ),'dashicons-admin-site',110);
+        add_menu_page( 'Getting Started', 'One Message', 'manage_options', 'one_message', array( $this,'gettingStarted_index' ),$icon_url =PLUGIN_URL . 'assets/fav.png',110);
         // if(isset($_SESSION["AllSet"])){
         //     // add_submenu_page('one_message','Preferences', 'Preferences', 'manage_options', 'one_message_setting',array(AdminPages::class, 'preferences_page'));
         // }

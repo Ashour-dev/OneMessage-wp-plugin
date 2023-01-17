@@ -13,7 +13,6 @@
   background: #f5f5f5;
   box-shadow: 20px 20px 100px #aeaeae, -20px -20px 100px #ffffff;
   min-width: 20%;
-  min-height: 20%;
   padding: 3vw;
 }
 .OneMessagePage .login_container h1 {
@@ -63,4 +62,11 @@
   bottom: 11px;
   right: 19px;
   text-decoration: none;
+}
+.OneMessagePage .wcp {
+  text-align: center;
+  padding: 2vw;
+}
+.OneMessagePage .wcp #error {
+  color: red;
 }/*# sourceMappingURL=style.css.map */

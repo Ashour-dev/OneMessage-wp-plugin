@@ -8,16 +8,11 @@ $apiKPagelink="Workspace undefined";
 use inc\DefaultFuncs;
 
 // $WSName=null;
-// require_once plugin_dir_path(__FILE__) . '../assets/globals.php';
 
 /*session created*/
 
-
 if(isset($_GET['alreadyUser'])){
     $alreadyUser=$_GET['alreadyUser'];
-    // $_SESSION["alreadyUser"]=$alreadyUser;
-
-    // echo 'alreadyUser=' . $alreadyUser;
 };
 if(isset($_GET['WSINserted'])){
     $WSName= $_GET['WSName'];
