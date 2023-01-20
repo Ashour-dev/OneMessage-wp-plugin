@@ -5,6 +5,7 @@ $alreadyUser=null;
 $WSC=null;
 $ApiC=null;
 $apiKPagelink="Workspace undefined";
+use inc\Init;
 use inc\DefaultFuncs;
 
 // $WSName=null;
@@ -59,6 +60,7 @@ if(isset($_GET['ApiK'])){
         $ApiC="Api Key valid";
         $_SESSION['ApiK']=$ApiK;
         $_SESSION['AllSet']=true;
+        Init::db_initiazlization();
         DefaultFuncs::StoreSessionVars();
     }
     else {
@@ -98,17 +100,19 @@ if(isset($_GET['ApiK'])){
                         <h1>Insert your worksace name</h1>
                         <input id="WSName" name="WSName" type="text">
                         <span id="errorWS">' . $WSC .'</span>
-                        <button
+                        <button class="button-primary"
                         onclick="sendWSN()">look for my Workspace</button>
                     </div>';
                         // onsubmit="sendWSN()"
                         // href="?page=one_message&alreadyUser=yes&WSINserted=true" type="submit"
             };
             if ($alreadyUser=='no'){
-                echo'
-                <div class="bookDemo">
-                <a href="https://www.onemessage.chat/book-a-demo/">Book a demo</a>
-                </div>';
+                // echo'
+                // <div class="bookDemo">
+                // <a href="https://www.onemessage.chat/book-a-demo/">Book a demo</a>
+                // </div>';
+                header("Location: https://www.onemessage.chat/book-a-demo/");
+                exit();
             };
             if($WSC=='Workspace found' && $ApiC!="Api Key valid"){
                 echo'
@@ -116,7 +120,7 @@ if(isset($_GET['ApiK'])){
                         <h1>Insert your Api Key</h1>
                         <input id="ApiK" name="ApiK" type="text">
                         <span id="errorApi">' . $ApiC . '</span>
-                        <button
+                        <button class="button-primary"
                         onclick="sendApiK()">Check the Api Key</button>
                         <a href="' . $apiKPagelink . '" target="OneMessage" id="apiKPage">Api Keys page</a>
                     </div>';
@@ -152,7 +156,8 @@ if(isset($_GET['ApiK'])){
         if(WSN.length==0){
             errF.textContent="Please enter the name of your Workspace";
         }else
-        location.href = "/wp-admin/admin.php?page=one_message&alreadyUser=yes&WSINserted=true&WSName=" + WSN ;
+        // location.href = "/wp-admin/admin.php?page=one_message&alreadyUser=yes&WSINserted=true&WSName=" + WSN ;
+        location.href = window.location.href + "&WSName=" + WSN;
     }
     function sendApiK(){
         let ApiK=document.getElementById("ApiK").value.trim();

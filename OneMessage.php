@@ -30,9 +30,11 @@ require 'vendor/pear/http_request2/HTTP/Request2.php';
 global $wpdb;
 
 
-if(! defined('ABSPATH')){
-    die;
-}
+// if(! defined('ABSPATH')){
+//     die;
+// }
+
+defined( 'ABSPATH' ) || exit;
 
 define('PLUGIN_PATH',plugin_dir_path( __FILE__ ));
 define('PLUGIN_URL',plugin_dir_url( __FILE__ ));
@@ -53,5 +55,5 @@ register_deactivation_hook(__FILE__, $deactivate);
 if(class_exists('inc\\Init')){
     session_start();
     inc\Init::register_services();
-    inc\Init::db_initiazlization();
+    // inc\Init::db_initiazlization();
 }

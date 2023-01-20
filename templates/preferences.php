@@ -4,38 +4,49 @@ use inc\Webhooks;
 global $wpdb;
 $error=null;
 $isConfigured=null;
-$button="Submit";
+$button="Save preferences";
 $tbName= $wpdb->prefix . 'woocommerce_api_keys';
 $options=[
-    ['Contact created','contact_created'],
-    ['Contact updated','contact_updated'],
-    ['Contact deleted','contact_deleted'],
+    ['Order created','order_created'],
+    ['Order updated','order_updated'],
+    ['Order deleted','order_deleted'],
     ['Product created','product_created'],
     ['Product updated','product_updated'],
     ['Product deleted','product_deleted'],
     ['Product restored','product_restored']
 ];
-$apiKey=$wpdb->get_results("SELECT * FROM $tbName WHERE description='OneMessage'");
-$permission=$apiKey[0]->permissions=='read_write';
-if(!$apiKey)
+// if(isset($_GET['wrapup'])){
+$apiKey=$wpdb->get_results("SELECT * FROM $tbName WHERE description='OneMessage - API'");
+if($apiKey)
+    $permission=$apiKey[0]->permissions=='read_write';
+if(!$apiKey){
     $error="Api Key Not Found";
+    // $Key=Webhooks::create_keys();
+    // dd($Key['consumer_key']);
+}
 elseif(!$permission)
     $error="please update the permissions of the Api key to Read/Write";
 elseif($apiKey[0]->consumer_key==null||$apiKey[0]->consumer_secret==null)
-    $error="Somthing went wrong please delete the key that you have created and create a new one";
+    $error="Somthing went wrong please delete the key that you have created, please create a new one";
 else{
+    // var_dump($apiKey);
     $isConfigured=true;
-    if(isset($_GET['contact_created'])){
+    if(isset($_GET['order_created'])){
         for($i=0;$i<count($options);$i++){
             array_push($options[$i],$_GET[$options[$i][1]]);
         }
-        Webhooks::saving();
+        Webhooks::saving($options);
+        wp_safe_redirect( admin_url('admin.php?page=one_message'));
     }
 }
+// }
+// if($isConfigured){
+
+// }
         // dd($apiKey[0]->consumer_key);
 
-    // var_dump($_GET);
-    dd($options)
+    // dd($_GET);
+    // dd($options)
 
 ?>
 <!DOCTYPE html>
@@ -58,15 +69,14 @@ else{
                 }
                 else{
                     // $fn="../inc/Webhooks.php";
-                    // echo'<h1>Webhooks</h1><form action="' . $fn . '">';
+                    echo '<h1>Webhook prefrecnces</h1>';
                     foreach($options as $option){
-                        echo"<input type=\"checkbox\" class=\"check\" id=\"$option[1]\"/>
+                        echo "<input type=\"checkbox\" class=\"check\" name=\"$option[1]\"/>
                         <label for=\"$option[1]\">
                         <span>$option[0]</span>
                         </label><br>";
                     };
-                    echo '<br><input onclick="sendApiK()" type="submit" value="' . $button . '">';
-                    // </form>';
+                    echo '<br><button class="button-primary" onclick="sendApiK()"> ' . $button . ' </button>';
                 }
             }
             else{
@@ -77,13 +87,13 @@ else{
     </div>
 </body>
 <script type="text/javascript">
-    // document.getElementById('wrapup').href=window.location.href + "&wrapup=true";
+    document.getElementById('wrapup').href=window.location.href + "&wrapup=true";
     function sendApiK(){
         let actions=document.getElementsByClassName('check');
         actions=Object.entries(actions);
         let results="";
         actions.forEach((action=>{
-            results+="&"+action[1].id+"="+action[1].checked;
+            results+="&"+action[1].name+"="+action[1].checked;
             // console.log(action[1].checked)
         }));
         location.href = window.location.href + results;  
