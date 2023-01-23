@@ -64,9 +64,28 @@
   text-decoration: none;
 }
 .OneMessagePage .wcp {
-  text-align: center;
   padding: 2vw;
 }
 .OneMessagePage .wcp #error {
   color: red;
+}
+.OneMessagePage .wcp .logo {
+  width: 486px;
+  height: 68px;
+}
+.OneMessagePage .wcp .permissions {
+  list-style: inside;
+}
+.OneMessagePage .wcp .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 3%;
+}
+.OneMessagePage .wcp .buttons * {
+  width: 50%;
+  text-align: center;
+}
+.OneMessagePage .wcp .prefs {
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

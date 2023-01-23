@@ -67,10 +67,30 @@
         }
     }
     .wcp{
-        text-align: center;
+        // text-align: center;
         padding: 2vw;
         #error{
             color: red;
+        }
+        .logo{
+            width: 486px;
+            height: 68px;
+        }
+        .permissions{
+            list-style: inside;
+        }
+        .buttons{
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 3%;
+            *{
+                width: 50%;
+                text-align: center;
+            }
+        }
+        .prefs{
+            text-align: center;
         }
     }
 }

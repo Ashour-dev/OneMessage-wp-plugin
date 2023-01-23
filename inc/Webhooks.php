@@ -67,5 +67,4 @@ class Webhooks{
         // flush_rewrite_rules();
         wp_cache_flush();
     }
-
 }

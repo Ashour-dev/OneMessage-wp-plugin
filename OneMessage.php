@@ -41,8 +41,9 @@ define('PLUGIN_URL',plugin_dir_url( __FILE__ ));
 define('PLUGIN',plugin_basename( __FILE__ ));
 define('TBNAME',$wpdb->prefix . 'One');
 define('UPGRADE', ABSPATH . 'wp-admin/includes/upgrade.php');
-$tbName=TBNAME;
-define('ALLSET', count($wpdb->get_results("SELECT * FROM $tbName")));
+define('ALLSET', count($wpdb->get_results(sprintf('SELECT * FROM %s',TBNAME))));
+// $tbName=TBNAME;
+// define('ALLSET', count($wpdb->get_results("SELECT * FROM $tbName")));
 
 
 use inc\DefaultFuncs;
@@ -55,5 +56,6 @@ register_deactivation_hook(__FILE__, $deactivate);
 if(class_exists('inc\\Init')){
     session_start();
     inc\Init::register_services();
+    // inc\WC_Integration_One::init();
     // inc\Init::db_initiazlization();
 }

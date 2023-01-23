@@ -1,9 +1,9 @@
 <?php
 use inc\Webhooks;
-// DefaultFuncs::StoreSessionVars();
+use inc\Api;
 global $wpdb;
 $error=null;
-$isConfigured=null;
+$isApproved=null;
 $button="Save preferences";
 $tbName= $wpdb->prefix . 'woocommerce_api_keys';
 $options=[
@@ -17,20 +17,24 @@ $options=[
 ];
 // if(isset($_GET['wrapup'])){
 $apiKey=$wpdb->get_results("SELECT * FROM $tbName WHERE description='OneMessage - API'");
-if($apiKey)
-    $permission=$apiKey[0]->permissions=='read_write';
 if(!$apiKey){
-    $error="Api Key Not Found";
-    // $Key=Webhooks::create_keys();
-    // dd($Key['consumer_key']);
-}
-elseif(!$permission)
-    $error="please update the permissions of the Api key to Read/Write";
-elseif($apiKey[0]->consumer_key==null||$apiKey[0]->consumer_secret==null)
-    $error="Somthing went wrong please delete the key that you have created, please create a new one";
-else{
+    if(isset($_GET['permission'])){
+        $isApproved=$_GET['permission']=="granted";
+        wp_safe_redirect( admin_url('admin.php?page=one_message'));
+    }
+    if($isApproved){
+        // dd("Action preformed successfully");
+        $Key=Api::create_keys();
+    }
+}else{
+    $permission=$apiKey[0]->permissions=='read_write';
+    if(!$permission)
+        $error="please update the permissions of the Api key to Read/Write";
+    //elseif($apiKey[0]->consumer_key==null||$apiKey[0]->consumer_secret==null)
+        //Regenerate Api Key
+    else{
     // var_dump($apiKey);
-    $isConfigured=true;
+    // $isApproved=true;
     if(isset($_GET['order_created'])){
         for($i=0;$i<count($options);$i++){
             array_push($options[$i],$_GET[$options[$i][1]]);
@@ -39,8 +43,12 @@ else{
         wp_safe_redirect( admin_url('admin.php?page=one_message'));
     }
 }
+}
+
+
+
 // }
-// if($isConfigured){
+// if($isApproved){
 
 // }
         // dd($apiKey[0]->consumer_key);
@@ -60,33 +68,47 @@ else{
         <!-- <h1>Preferences</h1> -->
         <div class="login_container wcp">
             <?php
-            if(!$error){
-                if(!$isConfigured){
-                    echo '<h2>Now We need to setup the connection between <br> Our platform and woocommerce</h2> 
-                    <h4>To setup that connection you will need to follow some <a href="/">simple steps</a></h4>
-                    <h4>Once you finish these steps please click <a id="wrapup" href="/">here</a></h4>
+            if(!$apiKey){
+                if(!$isApproved){
+                    echo '<img class="logo" src="' . PLUGIN_URL . 'assets/OneMessage_logo.png" alt="OneMessage" />
+                    <div class="content">
+                    <h2>OneMessage would like to connect to your store</h2>
+                    <p>This will give &quot;<strong>OneMessage</strong>&quot; <strong>Read/Write</strong> access which will allow it to:</p>
+                    <ul class="permissions">
+                        <li>Create webhooks</li>
+                        <li>View and manage customers</li>
+                        <li>View and manage orders and sales reports</li>
+                        <li>View and manage products</li>
+                        <li>View and manage coupons</li>
+                    </ul>
+                    <div class="buttons">
+                    <a href="" class="button button-primary" id="approve">Approve</a>
+                    <a href="" class="button" id="deny">Deny</a>
+                    </div>
                     ';
                 }
-                else{
-                    // $fn="../inc/Webhooks.php";
-                    echo '<h1>Webhook prefrecnces</h1>';
+            }
+            else{
+                // echo '<h2 id="error">' . $error . '</h2>';
+                echo '<h1>Webhook prefrecnces</h1><div class="prefs">';
                     foreach($options as $option){
                         echo "<input type=\"checkbox\" class=\"check\" name=\"$option[1]\"/>
                         <label for=\"$option[1]\">
                         <span>$option[0]</span>
                         </label><br>";
                     };
-                    echo '<br><button class="button-primary" onclick="sendApiK()"> ' . $button . ' </button>';
-                }
-            }
-            else{
-                echo '<h2 id="error">' . $error . '</h2>';
+                    echo '<br><button class="button-primary" onclick="sendApiK()"> ' . $button . ' </button></div>';
             }
             ?>
         </div>
     </div>
 </body>
 <script type="text/javascript">
+    if(document.getElementById('approve')){
+        document.getElementById('approve').href=window.location.href + "&permission=granted";
+        document.getElementById('deny').href=window.location.href + "&permission=denied";
+    }
+    if(document.getElementById('wrapup'))
     document.getElementById('wrapup').href=window.location.href + "&wrapup=true";
     function sendApiK(){
         let actions=document.getElementsByClassName('check');
