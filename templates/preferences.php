@@ -33,8 +33,9 @@ if(!$apiKey){
     //elseif($apiKey[0]->consumer_key==null||$apiKey[0]->consumer_secret==null)
         //Regenerate Api Key
     else{
-    // var_dump($apiKey);
-    // $isApproved=true;
+    $WSName=$wpdb->get_results("SELECT WSName FROM {$wpdb->prefix}One");
+    header(sprintf("Location: https://%s.onemessage.chat/automations",$WSName[0]->WSName));
+    exit();
     if(isset($_GET['order_created'])){
         for($i=0;$i<count($options);$i++){
             array_push($options[$i],$_GET[$options[$i][1]]);

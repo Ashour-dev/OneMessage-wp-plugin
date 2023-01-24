@@ -6,7 +6,6 @@ $WSC=null;
 $ApiC=null;
 $apiKPagelink="Workspace undefined";
 use inc\Init;
-use inc\DefaultFuncs;
 use inc\RegistrationFuncs;
 
 // $WSName=null;
@@ -45,7 +44,7 @@ if(isset($_GET['ApiK'])){
         $_SESSION['ApiK']=$ApiK;
         $_SESSION['AllSet']=true;
         Init::db_initiazlization();
-        DefaultFuncs::StoreSessionVars();
+        RegistrationFuncs::StoreSessionVars();
     }
     else {
         if($response->getStatus() == 401){
