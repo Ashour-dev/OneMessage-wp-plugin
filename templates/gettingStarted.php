@@ -7,6 +7,7 @@ $ApiC=null;
 $apiKPagelink="Workspace undefined";
 use inc\Init;
 use inc\DefaultFuncs;
+use inc\RegistrationFuncs;
 
 // $WSName=null;
 
@@ -15,26 +16,9 @@ use inc\DefaultFuncs;
 if(isset($_GET['alreadyUser'])){
     $alreadyUser=$_GET['alreadyUser'];
 };
-if(isset($_GET['WSINserted'])){
+if(isset($_GET['WSName'])){
     $WSName= $_GET['WSName'];
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://' . $WSName . '.onemessage.chat/',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'GET',
-    ));
-
-    // $response = curl_exec($curl);
-    $response = curl_exec($curl);
-
-    curl_close($curl);
-    // dd($response);
+    $response=RegistrationFuncs::WSCheck($WSName);
     if ($response==false)
         $WSC='Workspace not found';
     else{
@@ -76,6 +60,8 @@ if(isset($_GET['ApiK'])){
         // dd($e->getMessage());
         echo 'Error: ' . $e->getMessage();
     }
+    // $ApiC=RegistrationFuncs::ApiKCheck($WSName,$ApiK);
+
 }
 
 ?>
@@ -150,13 +136,14 @@ if(isset($_GET['ApiK'])){
     </div>
 </body>
 <script type="text/javascript">
+    document.getElementById("WSName")?document.getElementById("WSName").addEventListener("keydown", (e) => {if (e.key == "Enter"){sendWSN();}}):"";
+    document.getElementById("ApiK")?document.getElementById("ApiK").addEventListener("keydown", (e) => {if (e.key == "Enter"){sendApiK();}}):"";
     function sendWSN() {
-        var WSN=document.getElementById("WSName").value.trim();
+        let WSN=document.getElementById("WSName").value.trim();
         errF=document.getElementById("errorWS");
         if(WSN.length==0){
             errF.textContent="Please enter the name of your Workspace";
         }else
-        // location.href = "/wp-admin/admin.php?page=one_message&alreadyUser=yes&WSINserted=true&WSName=" + WSN ;
         location.href = window.location.href + "&WSName=" + WSN;
     }
     function sendApiK(){

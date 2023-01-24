@@ -8,18 +8,19 @@ final class Init{
         $tbName= $wpdb->prefix . 'One';
         // $charset=$wpdb->get_charset_collate;
         $query="CREATE TABLE $tbName (
-            `WSName` VARCHAR(31),
+            `WSName` VARCHAR(31) PRIMARY KEY,
             `ApiK` VARCHAR(30),
             `AllSet` Boolean
         );";
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        require_once(UPGRADE);
         dbDelta($query);
     }
     public static function get_services(){
         return[
             DefaultFuncs::class,
             AdminPages::class,
-            EnqueueFiles::class
+            EnqueueFiles::class,
+            // WC_Integration_One::class
         ];
     }
     public static function register_services(){
