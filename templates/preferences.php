@@ -34,8 +34,8 @@ if(!$apiKey){
         //Regenerate Api Key
     else{
     $WSName=$wpdb->get_results("SELECT WSName FROM {$wpdb->prefix}One");
-    header(sprintf("Location: https://%s.onemessage.chat/automations",$WSName[0]->WSName));
-    exit();
+    // header(sprintf("Location: https://%s.onemessage.chat/automations",$WSName[0]->WSName));
+    // exit();
     if(isset($_GET['order_created'])){
         for($i=0;$i<count($options);$i++){
             array_push($options[$i],$_GET[$options[$i][1]]);
@@ -45,18 +45,6 @@ if(!$apiKey){
     }
 }
 }
-// dd(get_site_url());
-
-
-// }
-// if($isApproved){
-
-// }
-        // dd($apiKey[0]->consumer_key);
-
-    // dd($_GET);
-    // dd($options)
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +105,6 @@ if(!$apiKey){
         let results="";
         actions.forEach((action=>{
             results+="&"+action[1].name+"="+action[1].checked;
-            // console.log(action[1].checked)
         }));
         location.href = window.location.href + results;  
         console.log(results);

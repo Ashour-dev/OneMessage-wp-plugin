@@ -5,7 +5,6 @@ $alreadyUser=null;
 $WSC=null;
 $ApiC=null;
 $apiKPagelink="Workspace undefined";
-use inc\Init;
 use inc\RegistrationFuncs;
 
 // $WSName=null;
@@ -28,39 +27,7 @@ if(isset($_GET['WSName'])){
 };
 if(isset($_GET['ApiK'])){
     $ApiK=$_GET['ApiK'];
-    $request = new HTTP_Request2();
-    $request->setUrl("https://$WSName.onemessage.chat/api/v1/social-profiles");
-    $request->setMethod(HTTP_Request2::METHOD_GET);
-    $request->setConfig(array(
-    'follow_redirects' => TRUE
-    ));
-    $request->setHeader(array(
-    'Authorization' => "Bearer $ApiK"
-    ));
-    try {
-    $response = $request->send();
-    if ($response->getStatus() == 200) {
-        $ApiC="Api Key valid";
-        $_SESSION['ApiK']=$ApiK;
-        $_SESSION['AllSet']=true;
-        Init::db_initiazlization();
-        RegistrationFuncs::StoreSessionVars();
-    }
-    else {
-        if($response->getStatus() == 401){
-            $ApiC="Api Key is Invalid";
-        }else{
-            $ApiC='Unexpected HTTP status: ' . $response->getStatus() . ' ' .$response->getReasonPhrase();
-        }
-    }
-    }
-    catch(HTTP_Request2_Exception $e) {
-        // $ApiC=null;
-        // dd($e->getMessage());
-        echo 'Error: ' . $e->getMessage();
-    }
-    // $ApiC=RegistrationFuncs::ApiKCheck($WSName,$ApiK);
-
+    $ApiC=RegistrationFuncs::ApiKCheck($WSName,$ApiK);
 }
 
 ?>
